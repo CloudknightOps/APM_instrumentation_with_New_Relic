@@ -14,10 +14,10 @@
     "Miško Hevery <misko@angularjs.org",
     "Vojta Jína <vojta@angularjs.org"
   ],
-  "main": "scripts/server.js",
+  "main": "server/start.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-		"start": "node server.js"
+		"start": "node server/start.js"
 	},  
   "dependencies": {
     "csv": ">= 0.2.1",

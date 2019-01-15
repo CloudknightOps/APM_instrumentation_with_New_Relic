@@ -16,7 +16,7 @@ foodMeApp.service('cart', function Cart(localStorage, customer, $rootScope, $htt
     if (self.restaurant.id == restaurant.id) {
       self.items.forEach(function(cartItem) {
         if (item && cartItem.name == item.name) {
-          cartItem.qty ++;
+          cartItem.qty++;
           item = null;
         }
       });
@@ -25,7 +25,8 @@ foodMeApp.service('cart', function Cart(localStorage, customer, $rootScope, $htt
         item.qty = 1;
         self.items.push(item);
       }
-    } else {
+    }
+    else {
       alert('Can not mix menu items from different restaurants.');
     }
   };
@@ -51,6 +52,16 @@ foodMeApp.service('cart', function Cart(localStorage, customer, $rootScope, $htt
 
   self.submitOrder = function() {
     if (self.items.length) {
+
+
+    self.items.forEach(
+      function(item) {
+        newrelic.addPageAction('orderItem', { 
+          restaurant: self.restaurant.name,
+            item: item.name,
+            qty: item.qty
+          });
+      });
       return $http.post('/api/order', {
         items: self.items,
         restaurant: self.restaurant,
@@ -81,12 +92,12 @@ foodMeApp.service('cart', function Cart(localStorage, customer, $rootScope, $htt
     self[localName] = json ? JSON.parse(json) : new Type;
 
     $rootScope.$watch(
-        function() { return self[localName]; },
-        function(value) {
-          if (value) {
-            localStorage[storageName] = JSON.stringify(value);
-          }
-        },
-        true);
+      function() { return self[localName]; },
+      function(value) {
+        if (value) {
+          localStorage[storageName] = JSON.stringify(value);
+        }
+      },
+      true);
   }
 });

@@ -1,4 +1,9 @@
+var newrelic = require('newrelic');
+
 var express = require('express');
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
+
 var fs = require('fs');
 var open = require('open');
 
@@ -27,18 +32,17 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE, TEST_DIR) {
   var storage = new MemoryStorage();
 
   // log requests
-  app.use(express.logger('dev'));
+  app.use(morgan('combined'));
 
   // serve static files for demo client
   app.use(express.static(STATIC_DIR));
 
-  // parse body into req.body
-  app.use(express.bodyParser());
-
+  // create application/json parser
+  var jsonParser = bodyParser.json()
 
   // API
   app.get(API_URL, function(req, res, next) {
-    res.send(200, storage.getAll().map(removeMenuItems));
+    res.status(200).send(storage.getAll().map(removeMenuItems));
   });
 
 
@@ -51,23 +55,40 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE, TEST_DIR) {
       return res.send(201, restaurant);
     }
 
-    return res.send(400, {error: errors});
+    return res.status(400).send({ error: errors });
   });
 
-  app.post(API_URL_ORDER, function(req, res, next) {
-    console.log(req.body)
-    return res.send(201, { orderId: Date.now()});
+  app.post(API_URL_ORDER, jsonParser, function(req, res, next) {
+
+    console.log(req.body);
+var order = req.body;
+var itemCount = 0;
+var orderTotal = 0;
+order.items.forEach(function(item) {
+  itemCount += item.qty;
+  orderTotal += item.price * item.qty;
+});
+
+    newrelic.addCustomAttributes({
+      'customer': order.deliverTo.name,
+      'restaurant': order.restaurant.name,
+      'itemCount': itemCount,
+      'orderTotal': orderTotal
+    });
+
+
+    return res.status(201).send({ orderId: Date.now() });
   });
 
 
   app.get(API_URL_ID, function(req, res, next) {
+
     var restaurant = storage.getById(req.params.id);
 
     if (restaurant) {
-      return res.send(200, restaurant);
+      return res.status(200).send(restaurant);
     }
-
-    return res.send(400, {error: 'No restaurant with id "' + req.params.id + '"!'});
+    return res.status(400).send({ error: 'No restaurant with id "' + req.params.id + '"!' });
   });
 
 
@@ -77,7 +98,7 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE, TEST_DIR) {
 
     if (restaurant) {
       restaurant.update(req.body);
-      return res.send(200, restaurant);
+      return res.status(200).send(restaurant);
     }
 
     restaurant = new RestaurantRecord(req.body);
@@ -86,16 +107,16 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE, TEST_DIR) {
       return res.send(201, restaurant);
     }
 
-    return res.send(400, {error: errors});
+    return res.send(400, { error: errors });
   });
 
 
-  app.del(API_URL_ID, function(req, res, next) {
+  app.delete(API_URL_ID, function(req, res, next) {
     if (storage.deleteById(req.params.id)) {
       return res.send(204, null);
     }
 
-    return res.send(400, {error: 'No restaurant with id "' + req.params.id + '"!'});
+    return res.send(400, { error: 'No restaurant with id "' + req.params.id + '"!' });
   });
 
 
@@ -112,7 +133,7 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE, TEST_DIR) {
 
     app.listen(PORT, function() {
       open('http://localhost:' + PORT + '/');
-      // console.log('Go to http://localhost:' + PORT + '/');
+      console.log('Go to http://localhost:' + PORT + '/');
     });
   });
 
@@ -126,6 +147,7 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE, TEST_DIR) {
         process.exit(0);
       });
     });
-  } catch (e) {}
+  }
+  catch (e) {}
 
 };

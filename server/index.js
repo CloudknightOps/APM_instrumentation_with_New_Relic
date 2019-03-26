@@ -58,33 +58,14 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE, TEST_DIR) {
     return res.status(400).send({ error: errors });
   });
 
-  app.post(API_URL_ORDER, jsonParser, function(req, res, next) {
-
+  app.post(API_URL_ORDER, jsonParser, function(req, res, next) {  
     console.log(req.body);
-
-    var order = req.body;
-    var itemCount = 0;
-    var orderTotal = 0;
-    order.items.forEach(function(item) {
-      itemCount += item.qty;
-      orderTotal += item.price * item.qty;
-    });
-
-    newrelic.addCustomAttributes({
-      'customer': order.deliverTo.name,
-      'restaurant': order.restaurant.name,
-      'itemCount': itemCount,
-      'orderTotal': orderTotal
-    });
-
     return res.status(201).send({ orderId: Date.now() });
   });
 
 
   app.get(API_URL_ID, function(req, res, next) {
-
     var restaurant = storage.getById(req.params.id);
-
     if (restaurant) {
       return res.status(200).send(restaurant);
     }

@@ -230,6 +230,7 @@ input.ng-invalid.ng-dirty {
 
 .fm-checkout table td:nth-child(1) input {
   width: 30px;
+  box-sizing: content-box  !important;
 }
 
 .fm-checkout table th,
@@ -243,10 +244,6 @@ input.ng-invalid.ng-dirty {
 
 input.ng-invalid {
   border: 1px solid red;
-}
-
-* {
-  box-sizing: border-box   !important;
 }
 
 form {

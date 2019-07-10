@@ -52,6 +52,16 @@ foodMeApp.service('cart', function Cart(localStorage, customer, $rootScope, $htt
 
   self.submitOrder = function() {
     if (self.items.length) {
+      
+      self.items.forEach(
+        function(item) {
+          newrelic.addPageAction('orderItem', { 
+            restaurant: self.restaurant.name, 
+            item: item.name,
+            qty: item.qty
+          });
+        });
+
       return $http.post('/api/order', {
         items: self.items,
         restaurant: self.restaurant,

@@ -17,8 +17,8 @@
   "main": "server/start.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-		"start": "node server/start.js"
-	},  
+    "start": "node server/start.js"
+  },
   "dependencies": {
     "csv": ">= 0.2.1",
     "express": ">= 3.0.0",

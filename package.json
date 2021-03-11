@@ -20,6 +20,7 @@
     "start": "node server/start.js"
   },
   "dependencies": {
+    "body-parser": "^1.13.0",
     "csv": ">= 0.2.1",
     "express": ">= 3.0.0",
     "logger": "0.0.1",

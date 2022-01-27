@@ -29,5 +29,8 @@
     "open": ">= 0.0.2",
     "testacular": "canary"
   },
+  "engines" : { 
+    "node": ">=12.0.0" 
+  },
   "license": "MIT"
 }

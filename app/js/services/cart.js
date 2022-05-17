@@ -58,6 +58,16 @@ foodMeApp.service('cart', function Cart(localStorage, customer, $rootScope, $htt
         payment: self.payment,
         deliverTo: customer
       }).then(function(response) {
+        /*  
+        self.items.forEach(
+          function(item) {
+            newrelic.addPageAction('orderItem', { 
+              restaurant: self.restaurant.name, 
+              item: item.name,
+              qty: item.qty
+            });
+          });
+        */ 
         self.reset();
         return response.data.orderId;
       });

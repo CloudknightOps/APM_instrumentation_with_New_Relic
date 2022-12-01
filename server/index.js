@@ -60,7 +60,7 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE, TEST_DIR) {
   });
 
   app.post(API_URL_ORDER, jsonParser, function(req, res, next) {  
-    logger.info(req.body);
+    logger.info('body %o', req.body);
     /*
     var order = req.body;
     var itemCount = 0;

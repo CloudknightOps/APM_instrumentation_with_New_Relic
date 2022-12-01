@@ -1,4 +1,5 @@
 var newrelic = require('newrelic');
+const logger = require('pino')();
 
 var express = require('express');
 var morgan = require('morgan');
@@ -59,7 +60,7 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE, TEST_DIR) {
   });
 
   app.post(API_URL_ORDER, jsonParser, function(req, res, next) {  
-    console.log(req.body);
+    logger.info(req.body);
     /*
     var order = req.body;
     var itemCount = 0;
@@ -129,7 +130,7 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE, TEST_DIR) {
 
     app.listen(PORT, function() {
       open('http://localhost:' + PORT + '/');
-      console.log('Go to http://localhost:' + PORT + '/');
+      logger.info('Go to http://localhost:' + PORT + '/');
     });
   });
 

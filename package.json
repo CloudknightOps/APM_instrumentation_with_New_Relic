@@ -1,5 +1,5 @@
 {
-  "name": "FoodMe",
+  "name": "foodme",
   "version": "0.0.1",
   "description": "Super awesome tutorial.",
   "keywords": [],
@@ -20,17 +20,16 @@
     "start": "node server/start.js"
   },
   "dependencies": {
-    "body-parser": "^1.13.0",
+    "body-parser": "^1.20.1",
     "csv": ">= 0.2.1",
     "express": ">= 3.0.0",
-    "logger": "0.0.1",
-    "morgan": "^1.9.0",
+    "morgan": "^1.10.0",
     "newrelic": ">= 4.13.1",
     "open": ">= 0.0.2",
-    "testacular": "canary"
+    "pino": "^8.7.0"
   },
-  "engines" : { 
-    "node": ">=12.0.0" 
+  "engines": {
+    "node": ">=16.0.0"
   },
   "license": "MIT"
 }

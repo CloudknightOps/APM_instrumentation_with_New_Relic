@@ -168,19 +168,13 @@ input.ng-invalid.ng-dirty {
 
 .fm-menu-list a {
   color: inherit;
+  background-color: white;
 }
 
 .fm-menu-list a:hover {
   text-decoration: none;
   color: inherit;
-}
-
-.fm-menu-list .icon-plus-sign {
-  visibility: hidden;
-}
-
-.fm-menu-list li:hover .icon-plus-sign {
-  visibility: visible;
+  background-color: #E5E5E5;
 }
 
 .fm-menu-list li:hover {

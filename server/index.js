@@ -1,6 +1,6 @@
 var newrelic = require('newrelic');
-const logger = require('pino')();
 
+const logger = require('pino')();
 var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');

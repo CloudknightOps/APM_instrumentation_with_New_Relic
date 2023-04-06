@@ -1,6 +1,6 @@
-# FoodMe App — an AngularJS app ready to be instrumented for New Relic APM and Browser
+# FoodMe App — an AngularJS app ready to be instrumented for New Relic APM 
 FoodMe is a simplified meal ordering app built with AngularJS and node.js backend. 
-New Relic instrumentation code has been placed in the following files: `newrelic.js`, `server/index.js`, `app/services/cart.js`.   
+New Relic instrumentation code has been placed in the following files: `newrelic.js`, `server/index.js`, `app/js/services/cart.js`.   
 
 Consider enrolling the the New Relic University course [Instrument and Alert on your apps with APM, Browser, & Synthetics](https://learn.newrelic.com/apm-browser-synthetics)  
 

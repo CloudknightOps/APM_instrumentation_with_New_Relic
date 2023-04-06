@@ -1,3 +1,11 @@
+# FoodMe App — an AngularJS app ready to be instrumented for New Relic APM and Browser
+FoodMe is a simplified meal ordering app built with AngularJS and node.js backend. New Relic instrumentation code 
+
+## Creative Commons
+This repository has been cloned and edited from: [https://github.com/IgorMinar/foodme/](https://github.com/IgorMinar/foodme/)
+
+
+
 # FoodMe App — a workshop app built with AngularJS
 
 Simplified meal ordering app for local restaurants built with AngularJS
